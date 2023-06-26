@@ -12,3 +12,9 @@ Cargo.lock
 
 # MSVC Windows builds of rustc generate these, which store debugging information
 *.pdb
+
+#IntelliJ Idea exists.
+.idea/
+
+#fuck it, throw VS in there as well
+.vs/
