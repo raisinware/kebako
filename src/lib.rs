@@ -6,6 +6,7 @@ pub mod kiss;
 
 #[async_trait]
 pub trait YuriGifCmd {
+	const CMD_NAME: &'static str;
 	const GIFS: &'static [&'static str];
 
 	fn get_rand() -> &'static str {
@@ -31,11 +32,20 @@ pub trait YuriGifCmd {
 		Ok(())
 	}
 
-	fn reply_msg_none(author: &String) -> String;
+	fn reply_msg_none(author: &String) -> String {
+		let _ = author;
+
+		format!("please tag the person u wanna {} :3", Self::CMD_NAME)
+	}
 
 	fn reply_msg_single(author: &String, target: &String) -> String;
 
-	fn reply_msg_multi(author: &String, targets: Vec<&String>) -> String;
+	fn reply_msg_multi(author: &String, targets: Vec<&String>) -> String {
+		let _ = author;
+		let _ = targets;
+
+		"polyamory not implimented yet :<".to_string()
+	}
 }
 
 pub fn get_all_mentioned_users(mentions: &Vec<User>) -> Vec<&String> {
