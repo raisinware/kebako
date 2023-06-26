@@ -23,6 +23,10 @@ impl YuriGifCmd for Kiss {
 	];
 
 	fn reply_msg_single(author: &String, target: &String) -> String {
-		format!("{} kisses {} >w<\n{}", author, target, Self::get_rand())
+		format!("`{}` kisses `{}` >w<\n{}", author, target, Self::get_rand())
+	}
+
+	fn reply_msg_multi(_: &String, _: Vec<&String>) -> String {
+		"polyamory not implimented yet :<".to_string()
 	}
 }

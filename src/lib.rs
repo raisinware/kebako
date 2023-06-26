@@ -1,7 +1,12 @@
 use async_trait::async_trait;
 use rand::{thread_rng, Rng};
-use serenity::{model::{user::User, prelude::Message}, prelude::Context, framework::standard::CommandResult};
+use serenity::{
+	framework::standard::CommandResult,
+	model::{prelude::Message, user::User},
+	prelude::Context,
+};
 
+pub mod hug;
 pub mod kiss;
 
 #[async_trait]
@@ -24,11 +29,13 @@ pub trait YuriGifCmd {
 			msg.reply(ctx, Self::reply_msg_none(author)).await?;
 			return Ok(());
 		} else if targets.len() > 1 {
-			msg.reply(ctx, Self::reply_msg_multi(author, targets)).await?;
+			msg.reply(ctx, Self::reply_msg_multi(author, targets))
+				.await?;
 			return Ok(());
 		}
 
-		msg.reply(ctx, Self::reply_msg_single(author, targets[0])).await?;
+		msg.reply(ctx, Self::reply_msg_single(author, targets[0]))
+			.await?;
 		Ok(())
 	}
 
@@ -44,12 +51,15 @@ pub trait YuriGifCmd {
 		let _ = author;
 		let _ = targets;
 
-		"polyamory not implimented yet :<".to_string()
+		format!(
+			"using {} on multiple people isn't implimented yet :<",
+			Self::CMD_NAME
+		)
 	}
 }
 
 pub fn get_all_mentioned_users(mentions: &Vec<User>) -> Vec<&String> {
-	let mut array:Vec<&String> = vec![];
+	let mut array: Vec<&String> = vec![];
 
 	for user in mentions {
 		array.push(&user.name);
