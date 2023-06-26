@@ -1,8 +1,8 @@
-use crate::YuriGif;
+use crate::YuriGifCmd;
 
 pub struct Kiss();
 
-impl YuriGif for Kiss {
+impl YuriGifCmd for Kiss {
 	const GIFS: &'static [&'static str] = &[
 		"https://tenor.com/view/poggers-pog-pogchamp-lesbian-anime-love-gif-20352902",
 		"https://cdn.weeb.sh/images/ByTBhp_vZ.gif",
@@ -24,11 +24,11 @@ impl YuriGif for Kiss {
 		"please tag the person u wanna kiss :3".to_string()
 	}
 
-	fn reply_msg_single(author: &String, recipient: &String) -> String {
-		format!("{} kisses {} >w<\n{}", author, recipient, Self::get_rand())
+	fn reply_msg_single(author: &String, target: &String) -> String {
+		format!("{} kisses {} >w<\n{}", author, target, Self::get_rand())
 	}
 
-	fn reply_msg_multi(_: &String, _: Vec<String>) -> String {
+	fn reply_msg_multi(_: &String, _: Vec<&String>) -> String {
 		"polyamory not implimented yet :<".to_string()
 	}
 }

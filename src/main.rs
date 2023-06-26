@@ -1,6 +1,6 @@
 use std::env;
 
-use nyabot::YuriGif;
+use nyabot::YuriGifCmd;
 use nyabot::kiss::Kiss;
 use serenity::async_trait;
 use serenity::prelude::*;
@@ -35,22 +35,7 @@ async fn help(ctx: &Context, msg: &Message) -> CommandResult {
 
 #[command]
 async fn kiss(ctx: &Context, msg: &Message) -> CommandResult {
-	let mentions = &msg.mentions;
-	let author = &msg.author.name;
-
-	if mentions.len() == 0 {
-		msg.reply(ctx, Kiss::reply_msg_none(author)).await?;
-		return Ok(());
-	} else if mentions.len() > 1 {
-		msg.reply(ctx, Kiss::reply_msg_multi(author, vec![])).await?;
-		return Ok(());
-	}
-
-	let recip1 = &mentions[0].name;
-
-	msg.reply(ctx, Kiss::reply_msg_single(author, recip1)).await?;
-
-	Ok(())
+	Kiss::cmd_impl(ctx, msg).await
 }
 
 #[tokio::main]
